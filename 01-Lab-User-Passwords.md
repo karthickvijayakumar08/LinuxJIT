@@ -170,12 +170,3 @@ ls -l /home/
 
 ---
 
-# **📘 Optional Challenge**
-
-Give user1 sudo access:
-
-```bash
-sudo usermod -aG wheel user1
-```
-
----
