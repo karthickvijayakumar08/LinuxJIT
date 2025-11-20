@@ -1,0 +1,46 @@
+✅ Linux User Management & Group Management – Lab Exercise
+________________________________________
+🔹 Part 1: Create Users
+Task 1: Create three users
+sudo useradd user1
+sudo useradd user2
+sudo useradd user3
+Task 2: Set passwords
+sudo passwd user1
+sudo passwd user2
+sudo passwd user3
+________________________________________
+🔹 Part 2: Create Groups
+Task 3: Create two groups
+sudo groupadd projectA
+sudo groupadd projectB
+________________________________________
+🔹 Part 3: Add Users to Groups
+Task 4: Add user1 & user2 to projectA
+sudo usermod -aG projectA user1
+sudo usermod -aG projectA user2
+Task 5: Add user3 to projectB
+sudo usermod -aG projectB user3
+
+
+
+
+
+
+
+Task 6: Verify group membership
+id user1
+id user2
+id user3
+________________________________________
+🔹 Part 4: Change Primary Group
+Task 7: Set projectA as primary group for user1
+sudo usermod -g projectA user1
+________________________________________
+________________________________________
+🔹 Part 5: Delete Users & Groups
+Task 8: Delete a user (with home directory)
+sudo userdel -r user3
+Task 9: Delete a group
+sudo groupdel projectB
+________________________________________
