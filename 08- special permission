@@ -1,0 +1,96 @@
+
+✅ Linux Special Permissions + File Links – Lab Exercise
+
+🔹 Part 1: SUID (Set User ID) Permission
+Task 1: Create a file
+sudo touch /tmp/suidfile
+sudo chown root:root /tmp/suidfile
+
+Task 2: Add SUID permission
+sudo chmod 4755 /tmp/suidfile
+
+Task 3: Verify
+ls -l /tmp/suidfile
+▶ Output should show rwsr-xr-x (small s in user section)
+
+Task 4: Explain
+Students must write:
+When a normal user runs this file → it executes as root (owner).
+
+🔹 Part 2: SGID (Set Group ID) Permission
+Task 5: Create a directory
+sudo mkdir /tmp/projectgrp
+sudo groupadd projectteam
+sudo chown root:projectteam /tmp/projectgrp
+
+Task 6: Apply SGID
+sudo chmod 2775 /tmp/projectgrp
+
+Task 7: Verify
+ls -ld /tmp/projectgrp
+▶ Output shows rwxrwsr-x (small s in group section)
+
+Task 8: Test SGID effect
+sudo useradd userA
+sudo passwd userA
+sudo usermod -aG projectteam userA
+
+su - userA
+cd /tmp/projectgrp
+touch fileA.txt
+ls -l
+Expected:
+Files created inside should automatically get group = projectteam
+
+🔹 Part 3: Sticky Bit
+Task 9: Apply sticky bit to shared directory
+sudo mkdir /tmp/shared
+sudo chmod 1777 /tmp/shared
+
+Task 10: Verify
+ls -ld /tmp/shared
+▶ Output should show rwxrwxrwt (t at end)
+
+Task 11: Test sticky bit
+userA creates a file
+userB tries to delete it → should fail
+
+
+
+
+
+
+
+🔹 Part 4: HARD LINK Lab
+Task 12: Create a file
+echo "Hello Link" > original.txt
+
+Task 13: Create hard link
+ln original.txt hlink.txt
+
+Task 14: Verify inode
+ls -li
+▶ Both files must have same inode number
+
+Task 15: Delete original
+rm original.txt
+cat hlink.txt
+Output still shows content → because hard link stores actual data reference
+
+🔹 Part 5: SOFT LINK (Symbolic Link) Lab
+
+Task 16: Create a directory and file
+mkdir /tmp/mydir
+echo "Unix Test" > /tmp/mydir/test.txt
+
+Task 17: Create soft link
+ln -s /tmp/mydir/test.txt softlink.txt
+Task 18: Verify
+ls -l
+▶ Shows → softlink.txt → /tmp/mydir/test.txt
+Task 19: Delete original
+rm /tmp/mydir/test.txt
+cat softlink.txt
+▶ Should show: No such file or directory
+Because soft link is just a path pointer
+
